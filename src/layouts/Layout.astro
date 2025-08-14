@@ -3,8 +3,6 @@ import background from '../assets/background.svg';
 const { title } = Astro.props;
 import Nav from "./Nav.astro";
 import Sidebar from './Sidebar.astro'
-import { readAllFiles } from "./FIleTreeView.astro";
-
 ---
 
 <!doctype html>
@@ -17,13 +15,13 @@ import { readAllFiles } from "./FIleTreeView.astro";
 		<title>{title}</title>
 	</head>
 	<body>
-		<div id="nav">
+		<div id="nav_grid_item">
 			<Nav />
 		</div>
-		<div id="sidebar">
+		<div id="sidebar_grid_item">
 			<Sidebar directoryName="writeups" title="Writeups" />
 		</div>
-		<div id="main">
+		<div id="main_grid_item">
 			<!-- <img id="background" src={background.src} alt="" fetchpriority="high" /> -->
 			<div id="main_container">
 				<slot />
@@ -44,15 +42,15 @@ import { readAllFiles } from "./FIleTreeView.astro";
 		filter: blur(1000px);
 	}
 
-	#nav {
+	#nav_grid_item {
 		grid-area: nav;
 	}
 
-	#sidebar {
+	#sidebar_grid_item {
 		grid-area: sidebar;
 	}
 
-	#main {
+	#main_grid_item {
 		grid-area: main;
 	}
 

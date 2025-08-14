@@ -1,57 +1,33 @@
 ---
-import Box from "@components/Box.astro"
-import FileTreeView from "@components/FIleTreeView.astro"
 import FileTreeEntry from '@components/FileTreeEntry.astro';
-const {title} = Astro.props;
+import { readAllFiles } from "utils";
 
-import fs from 'fs';
-import path from 'path';
-
-type FileTree = {
-  [key: string]: null | FileTree
-};
-
-const readAllFiles = (dir: string) => {
-  const files = fs.readdirSync(dir, { withFileTypes: true });
-
-  let output: FileTree = {};
-
-  for (const file of files) {
-    if (file.isDirectory()) {
-      const fullDirPath = path.join(dir, file.name);
-      output[file.name] = readAllFiles(fullDirPath);
-    } else {
-      output[file.name] = null;
-    }
-  }
-
-  return output;
-};
+const { title } = Astro.props;
 ---
 
 <div id="sidebar">
     <div id="title">
         {title}
     </div>
-    <FileTreeEntry indent="0" files={readAllFiles("writeups")}/>
+    <FileTreeEntry files={readAllFiles("writeups")}/>
 </div>
 
 <style>
     #sidebar {
-        /* background-image: linear-gradient(to bottom, #9CAFAA, white); */
-        background-color:#D6A99D;
+        background-image: linear-gradient(to bottom, #0c0c0c, #FBF3D5);
+        /* background-color:#D6A99D; */
         border-radius: 14px;
-        box-shadow: 0 0 2px 0px white inset, 0 0 2px 0px white;
+        box-shadow: 0 0 2px 0px white inset, 0 0 2px 0px #FBF3D5;
         color: #FBF3D5;
-        padding: 8px;
         /* margin: 4px 4px 0px 0px; */
         height: 90vh;
         font-family: sans-serif;
+        overflow: scroll;
+        padding: 10px;
     }
 
     #title {
         text-align: center;
-        padding: 4px;
         border-radius: 8px;
         box-shadow: 0 0 2px 0px white inset, 0 0 2px 0px white;
         background: #FBF3D5;

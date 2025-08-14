@@ -1,21 +1,49 @@
 ---
-import FileTreeEntryRecursive from './FileTreeEntry.astro';
-const { number: indent, number:step, files } = Astro.props;
+import type { FileTree } from 'utils';
+import Box from '@components/Box.astro';
+
+const { files, indent = 0, step = 1 } = Astro.props as {
+    files: FileTree,
+    indent?: number,
+    step?: number
+};
 ---
 
-<div class="writeup_entry" style={`margin-left:${indent}`}>
-    {
-        Object.entries(files).map(([name, value]) => 
-            <div class="row">
-                <div class="writeup_entry_file" style={`margin-left:${indent}+2em`}>
-                    {name}
-                </div>
-                {
-                    value && <div class="writeup_entry_folder" style={`margin-left:${indent}+2em`}>
-                        <FileTreeEntryRecursive indent={indent} files={value} />
-                    </div>
-                }
+{Object.entries(files).map(([name, value]) => 
+    <>
+        { value ? // Folder
+            <div class="writeup_entry_file" style={`margin-left:${indent}em`}>
+                <details>
+                    <summary>{name}</summary>
+                    <Astro.self files={value} indent={indent+step} step={step} />
+                </details>
             </div>
-        )
-    }
-</div>
+            : // Normal file
+            <div class="writeup_entry_file" style={`margin-left:${indent}em`}>
+                {name}
+            </div>
+        }
+    </>
+)}
+
+<style>
+.writeup_entry_file {
+    margin: 6px;
+    font-family:monospace;
+    font-size: large;
+    width:100%;
+}
+details summary {
+  cursor: pointer;
+}
+details[open] summary::before {
+  content: "[-] ";
+}
+details summary::before {
+  content: "[+] ";
+}
+
+details {
+    content: "-> "
+}
+</style>

@@ -1,30 +1,27 @@
 ---
 import Box from "@components/Box.astro"
 ---
-<div id="navigation">
-    <nav id="links">
-        <Box><a href="/">/home</a></Box>
-        <Box><a href="/about">/about-me</a></Box>
-        <Box><a href="/blank">/testing</a></Box>
-        <Box><a href="/writeups">/writeups</a></Box>
-    </nav>
-</div>
+<nav>
+    <Box><a href="/">/home</a></Box>
+    <Box><a href="/about">/about-me</a></Box>
+    <Box><a href="/blank">/testing</a></Box>
+    <Box><a href="/writeups">/writeups</a></Box>
+</nav>
 
 <style>
-    #navigation {
+    nav {
         background-image: linear-gradient(to right, #0C0C0C, #FBF3D5);;
         padding: 4px;
         font-size: x-large;
-        border-radius: 14px;
+        border-radius: 14px 0px 0px 14px;
         box-shadow: 0 0 2px 0px white inset, 0 0 2px 0px white;
-    }
-
-    #links {
         display: flex;
         flex-direction: row;
+        width:fit-content;
         /* font-family: sans-serif; */
         font-family: monospace;
     }
+
     a {
         margin: 0px 4px 0px 4px;
         color: #FBF3D5;

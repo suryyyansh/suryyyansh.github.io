@@ -1,0 +1,21 @@
+---
+import FileTreeEntryRecursive from './FileTreeEntry.astro';
+const { number: indent, number:step, files } = Astro.props;
+---
+
+<div class="writeup_entry" style={`margin-left:${indent}`}>
+    {
+        Object.entries(files).map(([name, value]) => 
+            <div class="row">
+                <div class="writeup_entry_file" style={`margin-left:${indent}+2em`}>
+                    {name}
+                </div>
+                {
+                    value && <div class="writeup_entry_folder" style={`margin-left:${indent}+2em`}>
+                        <FileTreeEntryRecursive indent={indent} files={value} />
+                    </div>
+                }
+            </div>
+        )
+    }
+</div>

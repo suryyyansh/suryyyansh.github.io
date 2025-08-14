@@ -1,15 +1,39 @@
 ---
 import Box from "@components/Box.astro"
 import FileTreeView from "@components/FIleTreeView.astro"
-
+import FileTreeEntry from '@components/FileTreeEntry.astro';
 const {title} = Astro.props;
+
+import fs from 'fs';
+import path from 'path';
+
+type FileTree = {
+  [key: string]: null | FileTree
+};
+
+const readAllFiles = (dir: string) => {
+  const files = fs.readdirSync(dir, { withFileTypes: true });
+
+  let output: FileTree = {};
+
+  for (const file of files) {
+    if (file.isDirectory()) {
+      const fullDirPath = path.join(dir, file.name);
+      output[file.name] = readAllFiles(fullDirPath);
+    } else {
+      output[file.name] = null;
+    }
+  }
+
+  return output;
+};
 ---
 
 <div id="sidebar">
     <div id="title">
         {title}
     </div>
-    <FileTreeView directoryName="writeups" />
+    <FileTreeEntry indent="0" files={readAllFiles("writeups")}/>
 </div>
 
 <style>

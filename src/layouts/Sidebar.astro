@@ -1,33 +1,33 @@
 ---
-import Box from "@components/Box.astro"
-import FileTreeView from "@components/FIleTreeView.astro"
+import FileTreeEntry from '@components/FileTreeEntry.astro';
+import { readAllFiles } from "utils";
 
-const {title} = Astro.props;
+const { title } = Astro.props;
 ---
 
 <div id="sidebar">
     <div id="title">
         {title}
     </div>
-    <FileTreeView directoryName="writeups" />
+    <FileTreeEntry files={readAllFiles("writeups")}/>
 </div>
 
 <style>
     #sidebar {
-        /* background-image: linear-gradient(to bottom, #9CAFAA, white); */
-        background-color:#D6A99D;
+        background-image: linear-gradient(to bottom, #0c0c0c, #FBF3D5);
+        /* background-color:#D6A99D; */
         border-radius: 14px;
-        box-shadow: 0 0 2px 0px white inset, 0 0 2px 0px white;
+        box-shadow: 0 0 2px 0px white inset, 0 0 2px 0px #FBF3D5;
         color: #FBF3D5;
-        padding: 8px;
         /* margin: 4px 4px 0px 0px; */
         height: 90vh;
         font-family: sans-serif;
+        overflow: scroll;
+        padding: 10px;
     }
 
     #title {
         text-align: center;
-        padding: 4px;
         border-radius: 8px;
         box-shadow: 0 0 2px 0px white inset, 0 0 2px 0px white;
         background: #FBF3D5;

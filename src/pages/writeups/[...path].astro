@@ -1,0 +1,14 @@
+---
+import Layout from '@layouts/Layout.astro'
+export function getStaticPaths() {
+  return [
+    { params: { path: undefined }}
+  ]
+}
+const { path } = Astro.params;
+---
+<Layout>
+    <span>
+        Find my Writeups here soon!
+    </span>
+</Layout>

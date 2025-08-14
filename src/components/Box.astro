@@ -1,0 +1,28 @@
+<div id="container">
+    <div id="display_box">
+        <slot />
+    </div>
+</div>
+
+<style>
+    #display_box {
+        display:flex;
+        align-items: center;
+
+        padding: 0px 4px 0px 4px;
+        margin: 4px;
+        
+        color:white;
+        background-color: #0c0c0c;
+        opacity: 0.6;
+        transition: 0.3s;
+        
+        border: 2px solid wheat;
+        border-radius: 10px;
+        box-shadow: 0 0 2px 0px white inset, 0 0 2px 0px white;
+    }
+
+    #display_box:hover {
+        opacity: 1;
+    }
+</style>

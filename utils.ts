@@ -1,0 +1,3 @@
+export getValidPaths(path) = (path) => {
+
+}

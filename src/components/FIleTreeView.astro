@@ -1,0 +1,50 @@
+---
+import fs from 'fs';
+import path from 'path';
+import Box from '@components/Box.astro'
+
+type FileTree = {
+  [key: string]: null | FileTree
+};
+
+const readAllFiles = (dir: string) => {
+  const files = fs.readdirSync(dir, { withFileTypes: true });
+
+  let output: FileTree = {};
+
+  for (const file of files) {
+    if (file.isDirectory()) {
+      const fullDirPath = path.join(dir, file.name);
+      output[file.name] = readAllFiles(fullDirPath);
+    } else {
+      output[file.name] = null;
+    }
+  }
+
+  return output;
+};
+
+const { directoryName } = Astro.props;
+const files = readAllFiles(directoryName);
+
+const FileTreeView = (tree: FileTree, indent: number = 0): string => `
+  <div class="folder_level" style="margin-left:${indent}px">
+    ${Object.entries(tree).map(([name, value]) => `
+      <div style="margin-left:${indent}px">
+        ${name}
+        ${value ? FileTreeView(value, indent + 16) : ''}
+      </div>
+    `).join('')}
+  </div>
+`;
+---
+
+<div set:html={FileTreeView(files)}></div>
+
+<style>
+  .folder_level {
+    display: flex;
+    flex-direction: column;
+    background:white;
+  }
+</style>

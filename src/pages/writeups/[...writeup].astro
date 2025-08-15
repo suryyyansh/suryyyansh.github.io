@@ -1,0 +1,28 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { getEntry, render, getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const htb_machines_posts = await getCollection('htb_machines');
+  const htb_challenges_posts = await getCollection('htb_challenges');
+  // Need to find a better way to coalesce posts while ensuring schematic correctness
+  const posts = [...htb_machines_posts, ...htb_challenges_posts]
+
+  return posts.map(post => {
+    console.log(posts)
+    return {
+      params: { writeup: post.filePath?.split('writeups/')[1].split('.md')[0]},
+      props: { post },
+    }
+  });
+}
+const { writeup } = Astro.params;
+
+const { post } = Astro.props;
+const entry = await getEntry(post)
+const { Content } = await render(entry);
+---
+
+<Layout sidebar={true}, title="writeups">
+  <Content />
+</Layout>

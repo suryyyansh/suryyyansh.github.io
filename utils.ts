@@ -1,8 +1,10 @@
+import { getCollection, getEntry } from 'astro:content';
 import fs from 'fs';
 import path from 'path';
 
+
 export type FileTree = {
-  [key: string]: null | FileTree
+  [key: string]: string | FileTree
 };
 
 export const readAllFiles = (dir: string) => {
@@ -11,12 +13,8 @@ export const readAllFiles = (dir: string) => {
   let output: FileTree = {};
 
   for (const file of files) {
-    if (file.isDirectory()) {
-      const fullDirPath = path.join(dir, file.name);
-      output[file.name] = readAllFiles(fullDirPath);
-    } else {
-      output[file.name] = null;
-    }
+    const fullDirPath = path.join(dir, file.name);
+    output[file.name] = file.isDirectory() ? readAllFiles(fullDirPath) : '/' + fullDirPath.split('.md')[0];
   }
 
   return output;

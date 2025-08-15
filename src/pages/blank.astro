@@ -1,7 +1,9 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import { getCollection } from "astro:content";
 
-
+const posts = await getCollection('htb_machines')
+console.log(posts[0].filePath?.split('writeups/')[1].split('.md')[0])
 ---
 
 <Layout>

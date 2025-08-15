@@ -1,0 +1,28 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { getEntry, render, getCollection } from 'astro:content';
+
+// Used for getting all collections, we only need the one corresponding to the button clicked on the sidebar.
+export async function getStaticPaths() {
+  const htb_machines_posts = await getCollection('htb_machines');
+  const htb_challenges_posts = await getCollection('htb_challenges');
+  const posts = [...htb_machines_posts, ...htb_challenges_posts]
+
+  return posts.map(post => {
+    console.log(posts)
+    return {
+      params: { writeup: post.filePath?.split('writeups/')[1].split('.md')[0]},
+      props: { post },
+    }
+  });
+}
+const { writeup } = Astro.params;
+
+const { post } = Astro.props;
+const entry = await getEntry(post)
+const { Content } = await render(entry);
+---
+
+<Layout>
+  <Content />
+</Layout>

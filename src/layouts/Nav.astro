@@ -3,30 +3,49 @@ import Box from "@components/Box.astro"
 ---
 <nav>
     <Box><a href="/">/home</a></Box>
-    <Box><a href="/about">/about-me</a></Box>
-    <Box><a href="/blank">/testing</a></Box>
     <Box><a href="/writeups">/writeups</a></Box>
+    <Box><a href="/about">/about-me</a></Box>
 </nav>
+
+<!-- Scroll horizontally when scrolling vertically  -->
+<script>
+    function transformScroll(event: any) {
+    if (!event.deltaY) {
+        return;
+    }
+
+    event.currentTarget.scrollLeft += event.deltaY + event.deltaX;
+    event.preventDefault();
+    }
+
+    var element = document.querySelector("nav") || document;
+    element.addEventListener('wheel', transformScroll);
+</script>
 
 <style>
     nav {
-        background-image: linear-gradient(to right, #0C0C0C, #FBF3D5);;
+        background-image: linear-gradient(to right, #0C0C0C, #FBF3D5);
         padding: 4px;
         font-size: x-large;
         border-radius: 14px 0px 0px 14px;
         box-shadow: 0 0 2px 0px white inset, 0 0 2px 0px white;
         display: flex;
         flex-direction: row;
-        width:fit-content;
+        max-width: 100%;
+        min-width: 0;
+        /* width:fit-content; */
         /* font-family: sans-serif; */
         font-family: monospace;
+        overflow-x:auto;
+        overflow-y:hidden;
+        white-space: nowrap;
     }
 
     a {
         margin: 0px 4px 0px 4px;
         color: #FBF3D5;
         text-decoration: none;
-        /* display:inline-block;
-        vertical-align: middle; */
+        display:inline-block;
+        vertical-align: middle;
     }
 </style>

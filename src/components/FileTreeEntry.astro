@@ -5,13 +5,13 @@ import Box from '@components/Box.astro';
 const { files, indent = 0, step = 1 } = Astro.props as {
     files: FileTree,
     indent?: number,
-    step?: number
+    step?: number,
 };
 ---
 
 {Object.entries(files).map(([name, value]) => 
     <>
-        { value ? // Folder
+        { typeof value !== "string" ? // Folder
             <div class="writeup_entry_file" style={`margin-left:${indent}em`}>
                 <details>
                     <summary>{name}</summary>
@@ -20,7 +20,7 @@ const { files, indent = 0, step = 1 } = Astro.props as {
             </div>
             : // Normal file
             <div class="writeup_entry_file" style={`margin-left:${indent}em`}>
-                {name}
+                <a href={value}>{name}</a>
             </div>
         }
     </>
@@ -43,7 +43,4 @@ details summary::before {
   content: "[+] ";
 }
 
-details {
-    content: "-> "
-}
 </style>

@@ -1,4 +1,3 @@
-import { getCollection, getEntry } from 'astro:content';
 import fs from 'fs';
 import path from 'path';
 

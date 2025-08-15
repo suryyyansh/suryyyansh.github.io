@@ -1,6 +1,5 @@
 ---
 import type { FileTree } from 'utils';
-import Box from '@components/Box.astro';
 
 const { files, indent = 0, step = 1 } = Astro.props as {
     files: FileTree,
@@ -27,20 +26,25 @@ const { files, indent = 0, step = 1 } = Astro.props as {
 )}
 
 <style>
-.writeup_entry_file {
-    margin: 6px;
-    font-family:monospace;
-    font-size: large;
-    width:100%;
-}
-details summary {
-  cursor: pointer;
-}
-details[open] summary::before {
-  content: "[-] ";
-}
-details summary::before {
-  content: "[+] ";
-}
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+    .writeup_entry_file {
+        margin: 6px;
+        font-family:monospace;
+        font-size: large;
+        width:100%;
+    }
+    details summary {
+    cursor: pointer;
+    }
+    details[open] summary::before {
+    content: "[-] ";
+    }
+    details summary::before {
+    content: "[+] ";
+    }
 
 </style>

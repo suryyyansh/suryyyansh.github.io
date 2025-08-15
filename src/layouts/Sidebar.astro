@@ -7,12 +7,33 @@ const { title } = Astro.props;
 
 <div id="sidebar">
     <div id="title">
-        {title}
+        <div class="marquee"><div class="marquee-content">{(`${title} `.repeat(50))}</div></div>
     </div>
     <FileTreeEntry files={readAllFiles("writeups")}/>
 </div>
 
 <style>
+
+    .marquee {
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .marquee-content {
+      display: inline-block;
+      animation: scroll-left 30s linear infinite; /* Adjust duration as needed */
+    }
+
+    @keyframes scroll-left {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
     #sidebar {
         background-image: linear-gradient(to bottom, #0c0c0c, #FBF3D5);
         /* background-color:#D6A99D; */

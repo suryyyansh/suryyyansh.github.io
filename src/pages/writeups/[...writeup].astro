@@ -2,10 +2,10 @@
 import Layout from '@layouts/Layout.astro';
 import { getEntry, render, getCollection } from 'astro:content';
 
-// Used for getting all collections, we only need the one corresponding to the button clicked on the sidebar.
 export async function getStaticPaths() {
   const htb_machines_posts = await getCollection('htb_machines');
   const htb_challenges_posts = await getCollection('htb_challenges');
+  // Need to find a better way to coalesce posts while ensuring schematic correctness
   const posts = [...htb_machines_posts, ...htb_challenges_posts]
 
   return posts.map(post => {
@@ -23,6 +23,6 @@ const entry = await getEntry(post)
 const { Content } = await render(entry);
 ---
 
-<Layout>
+<Layout sidebar={true}, title="writeups">
   <Content />
 </Layout>

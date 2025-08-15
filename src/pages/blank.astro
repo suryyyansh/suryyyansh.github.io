@@ -1,11 +1,18 @@
----
-import Layout from "@layouts/Layout.astro";
-import { getCollection } from "astro:content";
+<html>
+    <body>
 
-const posts = await getCollection('htb_machines')
-console.log(posts[0].filePath?.split('writeups/')[1].split('.md')[0])
----
+    </body>
+</html>
 
-<Layout>
-
-</Layout>
+<style>
+    html {
+        width: 100%;
+        height: 100%;
+    }
+    body {
+        margin: 0px;
+        height: 100%;
+        display: grid;
+        border: 2px solid black;
+    }
+</style>

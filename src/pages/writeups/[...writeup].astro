@@ -20,15 +20,12 @@ export async function getStaticPaths() {
 const { writeup } = Astro.params;
 
 const { post } = Astro.props;
-const entry = await getEntry(post)
-const { Content } = await render(entry);
+const { Content } = await render(post);
 ---
 
 <Layout sidebar={true}, title="writeups">
   <div id="main_content">
-      <PostContent>
-        <Content />
-      </PostContent>      
+      <PostContent {post} />
   </div>
 </Layout>
 

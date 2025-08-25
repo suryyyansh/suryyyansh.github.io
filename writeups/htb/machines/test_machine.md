@@ -1,10 +1,10 @@
 ---
-name: Some Machine Name
+name: Cyberpsychosis
 difficulty: Hard
 author: Some Author
 ipAddress: 10.10.11.16
 dateAttempted: 01/01/01
-tags: ['SQL', 'Neo4j', 'Linux']
+tags: ['sql', 'neo4j', 'linux']
 ---
 
 # This is a test

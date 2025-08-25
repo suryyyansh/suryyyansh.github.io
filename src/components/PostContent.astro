@@ -1,8 +1,20 @@
 ---
+import type { DataEntryType } from "astro";
+import type { CollectionEntry, DataEntryMap } from "astro:content";
+import { getEntry, render, type DataEntry } from "astro:content";
+import PostHeader from "@components/PostHeader.astro";
+
+const { post } = Astro.props as {
+    post: CollectionEntry<"htb_machines"> | CollectionEntry<"htb_challenges">;
+};
+
+const { Content } = await render(post);
+const {name, dateAttempted: date, tags, author} = post.data;
 ---
 
+<PostHeader {name} {date} {tags} {author}/>
 <div id="post-content">
-    <slot />
+    <Content />
 </div>
 
 <style is:global>
@@ -12,6 +24,7 @@
     }
 
     #post-content h1 {
+        font-size: large
         color: black;
         font-family: 'Courier New', Courier, monospace;
     }

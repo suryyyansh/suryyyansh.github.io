@@ -1,0 +1,51 @@
+---
+import Box from "./Box.astro";
+
+const {name, tags, date, author} = Astro.props as {
+    name: string;
+    tags: string[];
+    date: string;
+    author: string;
+};
+---
+
+<div id="post-header">
+    <div id="post-title">
+        {name}
+    </div>
+    <div id="post-tags">
+        {tags.map(tag => <Box>{"+"+tag}</Box>)}
+    </div>
+</div>
+
+<style>
+    #post-title {
+        font-size: xx-large;
+        font-variant: small-caps;
+        grid-area: title;
+    }
+    #post-tags {
+        font-family: monospace;
+        display:flex;
+        flex-direction: row;
+        grid-area: tags;
+        font-size: x-large;
+    }
+    #post-header {
+        border: 2px solid wheat;
+        border-radius: 14px;
+        box-shadow: 0 0 2px 0px white inset, 0 0 2px 0px white;
+
+        display:grid;
+        grid-template:
+        "title title date"
+        "tags tags author";
+        /* background-color: #0c0c0c; */
+        background-image: linear-gradient(to right, #0C0C0C, wheat);
+        color: wheat;
+        width: auto;
+        padding: 10px;
+        margin:0px;
+        gap:10px;
+    }
+</style>

@@ -1,6 +1,7 @@
 ---
 import Layout from '@layouts/Layout.astro';
 import { getEntry, render, getCollection } from 'astro:content';
+import PostContent from '@components/PostContent.astro'
 
 export async function getStaticPaths() {
   const htb_machines_posts = await getCollection('htb_machines');
@@ -9,7 +10,7 @@ export async function getStaticPaths() {
   const posts = [...htb_machines_posts, ...htb_challenges_posts]
 
   return posts.map(post => {
-    console.log(posts)
+    console.log(post.filePath?.split('writeups/')[1].split('.md')[0])
     return {
       params: { writeup: post.filePath?.split('writeups/')[1].split('.md')[0]},
       props: { post },
@@ -24,5 +25,17 @@ const { Content } = await render(entry);
 ---
 
 <Layout sidebar={true}, title="writeups">
-  <Content />
+  <div id="main_content">
+      <PostContent>
+        <Content />
+      </PostContent>      
+  </div>
 </Layout>
+
+<style>
+  #main_content {
+    display:flex;
+    flex-direction: column;
+    /* height:100% */
+  }
+</style>

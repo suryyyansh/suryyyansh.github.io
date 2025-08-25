@@ -12,7 +12,7 @@ const { files, indent = 0, step = 1 } = Astro.props as {
     <>
         { typeof value !== "string" ? // Folder
             <div class="writeup_entry_file" style={`margin-left:${indent}em`}>
-                <details>
+                <details name={`writeup-folder-${indent}`}>
                     <summary>{name}</summary>
                     <Astro.self files={value} indent={indent+step} step={step} />
                 </details>
@@ -35,16 +35,16 @@ const { files, indent = 0, step = 1 } = Astro.props as {
         margin: 6px;
         font-family:monospace;
         font-size: large;
-        width:100%;
+        width:auto;
     }
-    details summary {
-    cursor: pointer;
+    details > summary {
+        cursor: pointer;
     }
-    details[open] summary::before {
-    content: "[-] ";
+    details[open] > summary::before {
+        content: "[..] ";
     }
-    details summary::before {
-    content: "[+] ";
+    details > summary::before {
+        content: "[./] ";
     }
 
 </style>

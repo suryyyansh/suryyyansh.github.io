@@ -7,7 +7,7 @@ import { glob } from 'astro/loaders';
 // 3. Define your collection(s)
 const htb_machines = defineCollection({
     loader: glob({
-        pattern: "**/*.md",
+        pattern: "**/*.(md|mdx)",
         base: "./writeups/htb/machines"
     }),
     schema: z.object({
@@ -22,7 +22,7 @@ const htb_machines = defineCollection({
 
 const htb_challenges = defineCollection({
     loader: glob({
-        pattern: "**/*.md",
+        pattern: "**/*.(md|mdx)",
         base: "./writeups/htb/challenges"
     }),
     schema: z.object({
@@ -37,7 +37,7 @@ const htb_challenges = defineCollection({
 
 const ctf_challenges = defineCollection({
     loader: glob({
-        pattern: "**/*.md",
+        pattern: "**/*.(md|mdx)",
         base: "./writeups/ctf"
     }),
     schema: z.object({

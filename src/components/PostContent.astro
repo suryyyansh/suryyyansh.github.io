@@ -1,0 +1,35 @@
+---
+---
+
+<div id="post-content">
+    <slot />
+</div>
+
+<style is:global>
+    #post-content {
+        margin: auto;
+        width:75%
+    }
+
+    #post-content h1 {
+        color: black;
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    #post-content p {
+        font-family: sans-serif;
+    }
+
+    #post-content ul {
+        /* list-style-position: outside; */
+        /* padding: 5px; */
+    }
+    
+    #post-content ul li {
+        /* list-style-type: "\25b8"; */
+        list-style-type: disc;
+        /* list-style-position: inside; */
+    }
+
+
+</style>

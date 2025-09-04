@@ -20,5 +20,7 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
-# jetbrains setting folder
-.idea/
+# .obsidian (what I use to edit the writeups)
+writeups/.obsidian/
+
+writeups/**/encrypted/

@@ -1,48 +1,87 @@
 ---
-import type { DataEntryType } from "astro";
-import type { CollectionEntry, DataEntryMap } from "astro:content";
-import { getEntry, render, type DataEntry } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
 import PostHeader from "@components/PostHeader.astro";
+import DecryptionDialogue from "./DecryptionDialogue.astro";
 
 const { post } = Astro.props as {
     post: CollectionEntry<"htb_machines"> | CollectionEntry<"htb_challenges">;
 };
 
-const { Content } = await render(post);
-const {name, dateAttempted: date, tags, author} = post.data;
+const {name, dateAttempted, tags, author, flagProtected=false} = post.data;
+const { Content: ClearContent } = await render(post);
+let encrypted;
+if (flagProtected) {
+    encrypted = JSON.parse(post.body ? post.body : "") as {
+        iv: string,
+        salt: string,
+        encrypted_writeup: string
+    }
+}
 ---
 
-<PostHeader {name} {date} {tags} {author}/>
-<div id="post-content">
-    <Content />
-</div>
+<PostHeader {name} {dateAttempted} {tags} {author}/>
+{flagProtected ? 
+    <DecryptionDialogue {...encrypted}/>
+    <article id="post-content" />
+    :
+    <article id="post-content">
+        <ClearContent />
+    </article>
+    }
 
 <style is:global>
     #post-content {
         margin: auto;
-        width:75%
-    }
-
-    #post-content h1 {
-        font-size: large
-        color: black;
-        font-family: 'Courier New', Courier, monospace;
+        width:75%;
+        font-size: 10pt;
+        color: var(--text);
+        font-family: sans-serif; 
     }
 
     #post-content p {
         font-family: sans-serif;
     }
 
-    #post-content ul {
-        /* list-style-position: outside; */
-        /* padding: 5px; */
-    }
-    
-    #post-content ul li {
-        /* list-style-type: "\25b8"; */
-        list-style-type: disc;
-        /* list-style-position: inside; */
+    #post-content pre {
+        padding:10px;
+        border-radius: 6px;
+        background: var(--primary);
+        border-left: 6px solid var(--accent);
     }
 
+    #post-content code {
+        font-family: monospace;
+    }
+
+    #post-content p code {
+        background: var(--tertiary);
+        padding: 2px 4px 2px 4px;
+        border-radius: 4px;
+
+    }
+
+    #post-content ul li {
+        list-style-type: disc;
+    }
+
+    #post-content h1,h2,h3,h4,h5 {
+        color: var(--text);
+    }
+    
+    #post-content hr {
+        display: block;
+        height: 0px;
+        border: 0;
+        border-top: 2px solid var(--accent);
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    #post-content a {
+        color: var(--text);
+        padding:4px;
+        background: var(--primary)
+    }
 
 </style>

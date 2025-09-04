@@ -9,42 +9,74 @@ const { files, indent = 0, step = 1 } = Astro.props as {
 ---
 
 {Object.entries(files).map(([name, value]) => 
-    <>
+    <div class="writeup_entry_file">
         { typeof value !== "string" ? // Folder
-            <div class="writeup_entry_file" style={`margin-left:${indent}em`}>
-                <details name={`writeup-folder-${indent}`}>
-                    <summary>{name}</summary>
-                    <Astro.self files={value} indent={indent+step} step={step} />
-                </details>
-            </div>
-            : // Normal file
-            <div class="writeup_entry_file" style={`margin-left:${indent}em`}>
+            // <details open name={`writeup-folder-${indent}`}>
+            <details open>
+                <summary class="folder-item" style={{
+                    'padding-left':`${indent+step}em`
+                }}>
+                    {`${' '.repeat(indent) + name}`}
+                </summary>
+                <Astro.self files={value} indent={indent+step} step={step} />
+            </details>
+        : // Normal file
+            <summary class="post-item" style={{
+                'padding-left':`${indent+2*step}em`
+            }}>
                 <a href={value}>{name}</a>
-            </div>
+            </summary>
         }
-    </>
+    </div>
 )}
 
 <style>
 
     a {
-        text-decoration: none;
+        text-decoration:none;
         color: inherit;
     }
+
     .writeup_entry_file {
-        margin: 6px;
+        /* margin: 6px; */
         font-family:monospace;
-        font-size: large;
-        width:auto;
+        font-size: 10pt;
+        width:100%;
     }
+
+    summary {
+        padding: 6px;
+        transition: background 0.3s;
+    }
+
+    summary::before {
+        content: "$ ";
+        color: var(--accent)
+    }
+
+    summary:hover {
+        background:black;
+    }
+
+    details {
+        background: var(--primary);
+        font-weight: bolder;
+    }
+
     details > summary {
         cursor: pointer;
+        font-weight:900;
+        /* font-variant: small-caps; */
+        background: var(--secondary);
+        /* list-style-type: none; */
     }
     details[open] > summary::before {
-        content: "[..] ";
+        content: "[...] ";
     }
     details > summary::before {
-        content: "[./] ";
+        content: "[./]> ";
+        color:var(--accent);
+        font-style: oblique;
     }
 
 </style>

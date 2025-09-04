@@ -1,0 +1,71 @@
+---
+import Box from "@components/Box.astro";
+
+let {iv, encrypted_writeup, salt} = Astro.props as {
+    iv: string,
+    encrypted_writeup: string,
+    salt: string
+};
+---
+
+<script type="module">
+
+    import { decryptWriteup, base64ToArrayBuffer } from '/scripts/decrypt.js';
+    const encrypted_writeup = base64ToArrayBuffer(document.getElementById("encrypted-writeup-content-container").value);
+    const salt = base64ToArrayBuffer(document.getElementById("encrypted-writeup-salt-container").value);
+    const iv = base64ToArrayBuffer(document.getElementById("encrypted-writeup-iv-container").value);
+
+    document.getElementById('unlock-form').addEventListener('submit', async (ev) => {
+        ev.preventDefault();
+        let flag = document.getElementById('flag').value;
+        try {
+            const decrypted_writeup = await decryptWriteup(flag, encrypted_writeup, iv, salt)
+            if (decrypted_writeup) {
+                document.getElementById('post-content').innerHTML = decrypted_writeup;
+                document.getElementById('decryption-dialogue').remove();
+            } else {
+                alert("Incorrect flag.");
+            }
+        } catch (err) {
+            alert("Incorrect flag.");
+        }
+    });
+</script>
+
+<div id="decryption-dialogue">
+    <span>
+        <h3>This writeup is encrypted.</h3>
+        <h2>Decrypt with the flag.</h2>
+    </span>
+    <form id="unlock-form">
+        <input id="flag" placeholder="CTF{...}"/>
+        <Box id="submit-flag" role="button" type="submit">Submit flag</Box>
+    </form>
+<input type="hidden" id="encrypted-writeup-content-container" value={encrypted_writeup} />
+<input type="hidden" id="encrypted-writeup-salt-container" value={salt} />
+<input type="hidden" id="encrypted-writeup-iv-container" value={iv} />
+</div>
+
+<style>
+    #decryption-dialogue {
+        display: grid;
+        grid-template:
+        "info info"
+        "input button";
+        gap: 5px;
+        /* width:50%; */
+        justify-content: center;
+        padding: 5px;
+        /* border: 1px solid #0c0c0c; */
+        font-family: monospace;
+    }
+    span {
+        grid-area: info;
+    }
+    input {
+        grid-area: input;
+    }
+    button {
+        grid-area: button;
+    }
+</style>

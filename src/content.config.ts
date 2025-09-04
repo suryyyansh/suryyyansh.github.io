@@ -7,23 +7,23 @@ import { glob } from 'astro/loaders';
 // 3. Define your collection(s)
 const htb_machines = defineCollection({
     loader: glob({
-        pattern: "**/*.(md|mdx)",
-        base: "./writeups/htb/machines"
+        pattern: ["**/*.(md|mdx)","!**/encrypted/**"],
+        base: "./writeups/HackTheBox/Machines"
     }),
     schema: z.object({
         name: z.string(),
         difficulty: z.enum(['Very Easy', 'Easy', 'Intermediate', 'Medium', 'Hard', 'Very Hard', 'Insane', 'Brainfuck']),
         author: z.string(),
-        ipAddress: z.string(),
         dateAttempted: z.coerce.date(),
         tags: z.array(z.string()),
+        flagProtected: z.boolean().optional()
     })
 });
 
 const htb_challenges = defineCollection({
     loader: glob({
-        pattern: "**/*.(md|mdx)",
-        base: "./writeups/htb/challenges"
+        pattern: ["**/*.(md|mdx)","!**/encrypted/**"],
+        base: "./writeups/HackTheBox/Challenges"
     }),
     schema: z.object({
         name: z.string(),
@@ -32,12 +32,13 @@ const htb_challenges = defineCollection({
         dateAttempted: z.coerce.date(),
         author: z.string(),
         tags: z.array(z.string()),
+        flagProtected: z.boolean().optional()
     })
 });
 
 const ctf_challenges = defineCollection({
     loader: glob({
-        pattern: "**/*.(md|mdx)",
+        pattern: ["**/*.(md|mdx)","!**/encrypted/**"],
         base: "./writeups/ctf"
     }),
     schema: z.object({
@@ -45,7 +46,8 @@ const ctf_challenges = defineCollection({
         year: z.string().optional(),
         dateAttempted: z.coerce.date(),
         by: z.string(),
-        tags: z.array(z.string())
+        tags: z.array(z.string()),
+        flagProtected: z.boolean().optional()
     })
 });
 

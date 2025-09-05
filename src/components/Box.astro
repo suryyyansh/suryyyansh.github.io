@@ -1,3 +1,6 @@
+---
+const {border=false} = Astro.props;
+---
 <div id="container">
     <div id="display_box">
         <slot />
@@ -9,20 +12,18 @@
         display:flex;
         align-items: center;
 
-        padding: 0px 8px 0px 8px;
+        padding: 2px 8px 2px 8px;
         margin: 4px;
         
-        color:white;
-        background-color: #0c0c0c;
-        opacity: 0.6;
-        transition: 0.3s;
+        /* color:#0c0c0c; */
+        background: var(--primary);
+        color: var(--text);
+        text-decoration: none;
+        opacity: 0.7;
         
-        border: 2px solid wheat;
+        border: 1px solid var(--primary);
         border-radius: 10px;
-        box-shadow: 0 0 2px 0px white inset, 0 0 2px 0px white;
+        box-shadow: 0 0 1px 0px var(--primary) inset, 0 0 1px 0px var(--primary);
     }
 
-    #display_box:hover {
-        opacity: 1;
-    }
 </style>

@@ -1,12 +1,13 @@
 ---
 import Box from "./Box.astro";
 
-const {name, tags, date, author} = Astro.props as {
+const {name, tags, dateAttempted, author} = Astro.props as {
     name: string;
     tags: string[];
-    date: string;
+    dateAttempted: string;
     author: string;
 };
+const dateParsed = dateAttempted.toString().split(" ").slice(1, 4).join(" ")
 ---
 
 <div id="post-header">
@@ -16,36 +17,90 @@ const {name, tags, date, author} = Astro.props as {
     <div id="post-tags">
         {tags.map(tag => <Box>{"+"+tag}</Box>)}
     </div>
+    <div id="post-date_attempted">
+       {dateParsed}
+    </div>
+    <div id="post-challenge_author">
+        {author}
+    </div>
 </div>
 
 <style>
-    #post-title {
-        font-size: xx-large;
-        font-variant: small-caps;
-        grid-area: title;
-    }
-    #post-tags {
-        font-family: monospace;
-        display:flex;
-        flex-direction: row;
-        grid-area: tags;
-        font-size: x-large;
-    }
     #post-header {
-        border: 2px solid wheat;
-        border-radius: 14px;
-        box-shadow: 0 0 2px 0px white inset, 0 0 2px 0px white;
-
+        z-index: 0;
+        /* box-shadow: 0 0 2px 0px var(--tertiary); inset, 0 0 2px 0px var(--tertiary); */
+        border-bottom: 2px solid var(--primary);
+        
         display:grid;
         grid-template:
         "title title date"
         "tags tags author";
-        /* background-color: #0c0c0c; */
-        background-image: linear-gradient(to right, #0C0C0C, wheat);
-        color: wheat;
+        align-items: center;
+
         width: auto;
-        padding: 10px;
+        padding: 20px;
         margin:0px;
         gap:10px;
+        
+        background-image: linear-gradient(to right, var(--tertiary), var(--secondary));
+        color: var(--text);
     }
+
+    #post-title {
+        font-size: x-large;
+        font-variant: small-caps;
+
+        grid-area: title;
+        color: var(--text);
+    }
+
+    #post-tags {
+        font-family: monospace;
+        font-size: 10pt;
+        cursor: default;
+
+        display:flex;
+        flex-direction: row;
+
+        grid-area: tags;
+    }
+
+    #post-date_attempted {
+        width: fit-content;
+        align-self: center;
+        justify-self: end;
+
+        font-size:10pt;
+        font-variant: small-caps;
+
+        border-bottom: 2px solid var(--accent);
+        border-left: 2px solid var(--accent);
+        box-shadow: inset 2px -2px 1px -2px var(--accent), -1px 1px 1px -2px var(--accent);
+
+        background: var(--inherit);
+        border-bottom-left-radius: 10px;
+
+        padding:6px;
+
+        grid-area: date;
+    }
+
+    #post-challenge_author {
+        width: fit-content;
+        align-self: center;
+        justify-self: end;
+        
+        font-size:12pt;
+        font-variant: small-caps;
+        
+        border-bottom: 2px solid var(--accent);
+        border-left: 2px solid var(--accent);
+        box-shadow: inset 2px -2px 1px -2px var(--accent), -1px 1px 1px -2px var(--accent);
+        border-bottom-left-radius: 10px;
+
+        padding:6px;
+        
+        grid-area: author;
+    }
+
 </style>

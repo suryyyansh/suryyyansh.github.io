@@ -5,43 +5,43 @@ import Box from "@components/Box.astro"
     <Box><a href="/">/home</a></Box>
     <Box><a href="/writeups">/writeups</a></Box>
     <Box><a href="/about">/about-me</a></Box>
-    <!-- <Box><a href="/blank">/blank</a></Box> -->
+    <Box><a href="/blank">/blank</a></Box>
 </nav>
-
-<!-- Scroll horizontally when scrolling vertically  -->
-<script>
-    function transformScroll(event: any) {
-    if (!event.deltaY) {
-        return;
-    }
-
-    event.currentTarget.scrollLeft += event.deltaY + event.deltaX;
-    event.preventDefault();
-    }
-
-    var element = document.querySelector("nav") || document;
-    element.addEventListener('wheel', transformScroll);
-</script>
 
 <style>
     nav {
-        background-image: linear-gradient(to right, #0C0C0C, #FBF3D5);
+        /* background-image: linear-gradient(to right, var(--tertiary), var(--primary)); */
+        background: var(--tertiary);
         padding: 4px;
-        font-size: x-large;
+        /* font-size: x-large; */
         
-        border-radius: 14px 0px 0px 14px;
-        box-shadow: 0 0 2px 0px white inset, 0 0 2px 0px white;
+        /* border-radius: 14px 0px 0px 14px; */
+        border: 1px solid var(--tertiary);
+        border-radius: 14px;
+        box-shadow: 0 0 2px 0px var(--tertiary) inset, 0 0 2px 0px var(--tertiary);
 
         display: flex;
         flex-direction: row;
         font-family: monospace;
-        overflow-x:auto;
-        overflow-y:hidden;
+        overflow-x:hidden;
+        /* overflow-y:hidden; */
         white-space: nowrap;
+
+        transition: border 0.5s, box-shadow 0.5s;
+    }
+    nav:hover {
+        box-shadow: 0 0 2px 0px var(--accent) inset, 0 0 2px 0px var(--accent);
+        border: 1px solid var(--accent)
     }
 
     a {
-        color: #FBF3D5;
+        color: var(--tex);
+        /* color: #0c0c0c; */
         text-decoration: none;
+        transition: 0.3s;
     }
+    a:hover {
+        color: var(--accent)
+    }
+
 </style>

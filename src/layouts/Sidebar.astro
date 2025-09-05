@@ -1,59 +1,73 @@
 ---
 import FileTreeEntry from '@components/FileTreeEntry.astro';
-import { readAllFiles } from "utils";
+import { buildFileTree } from "utils";
 
 const { title } = Astro.props;
+const fileTree = await buildFileTree()
 ---
 
 <div id="sidebar">
   <div id="title">
     <div class="marquee"><div class="marquee-content">{(`${title} `.repeat(50))}</div></div>
   </div>
-  <FileTreeEntry files={readAllFiles("writeups")}/>
+  <hr>
+  <FileTreeEntry files={fileTree}/>
 </div>
 
 <style>
 
-    .marquee {
-      width: 100%;
-      overflow: hidden;
-      white-space: nowrap;
-    }
+  .marquee {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+  }
 
-    .marquee-content {
-      display: inline-block;
-      animation: scroll-left 30s linear infinite; /* Adjust duration as needed */
-    }
+  .marquee-content {
+    display: inline-block;
+    animation: scroll-left 30s linear infinite; /* Adjust duration as needed */
+  }
 
-    @keyframes scroll-left {
-      from {
-        transform: translateX(0);
-      }
-      to {
-        transform: translateX(-50%);
-      }
+  @keyframes scroll-left {
+    from {
+      transform: translateX(0);
     }
-
-    #sidebar {
-        background-image: linear-gradient(to bottom, #0c0c0c, #FBF3D5);
-        /* background-color:#1c1c1c; */
-        border-radius: 14px;
-        box-shadow: 0 0 2px 0px white inset, 0 0 2px 0px #FBF3D5;
-        color: #FBF3D5;
-        font-family: sans-serif;
-        padding: 10px;
-        height:100%;
-        box-sizing: border-box;
+    to {
+      transform: translateX(-50%);
     }
+  }
 
-    #title {
-        text-align: center;
-        border-radius: 8px;
-        box-shadow: 0 0 2px 0px white inset, 0 0 2px 0px white;
-        background: #FBF3D5;
-        font-family: monospace;
-        font-size: x-large;
-        color:#0c0c0c;
+  #sidebar {
+    /* background-image: linear-gradient(to bottom, #0c0c0c, #FBF3D5); */
+    background:var(--sidebar-background);
+    color: var(--sidebar-text);
 
-    }
+    border-radius: 14px;
+    font-family: sans-serif;
+
+    height:100%;
+    width:100%;
+    box-sizing: border-box;
+  }
+
+  #title {
+    text-align: center;
+    /* border-radius: 8px; */
+    padding:10px;
+    font-family: monospace;
+    /* font-variant: small-caps; */
+    /* color: var(--accent); */
+    background: var(--tertiary);
+    border-radius: 14px 14px 0px 0px;
+    font-size: 12pt;
+    font-style: italic;
+  }
+
+  hr {
+    display: block;
+    height: 0px;
+    border: 0;
+    padding: 0;
+    border-top: 2px solid var(--primary);
+    margin: 0px;
+  }
 </style>

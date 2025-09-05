@@ -1,0 +1,42 @@
+:root {
+    /* 
+        AA means anti-aliasing. I'm using box
+        shadows to give the effect of anti-aliasing
+        on containers thru box shadows
+    */
+
+    /*
+        background
+    */
+    --primary: #303446;
+    
+    /*
+        content box border,
+        nav background start,
+        nav hover border shadow (AA)
+        post header background gradient start
+    */
+    --secondary: #292c3c;
+    
+    /*
+        sidebar box shadow (AA)
+        sidebar title box shadow (AA)
+        post header box shadow (AA)
+        post header background gradient end
+    */
+    --tertiary: #232634;
+    
+    /*
+        text everywhere except post header post name
+    */
+    --text: #c6d0f5;
+    --text-alt: var(--accent);
+    /*
+        post content code block left border
+    */
+    /* --accent: #81c8be; */
+    --accent: #E43264;
+
+    --sidebar-text:#b5bfe2;
+    --sidebar-background: var(--tertiary);
+}
